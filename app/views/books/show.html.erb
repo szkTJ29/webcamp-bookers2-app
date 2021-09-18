@@ -1,0 +1,38 @@
+<% if @book.errors.any? %>
+    <%= @book.errors.count %>件のエラーが発生しました
+    <% @book.errors.full_messages.each do |message| %>
+      <%= message %>
+    <% end %>
+  <% end %>
+  <% flash.each do |message_type, message| %>
+    <p id="notice"><%= message %></p>
+  <% end %>
+
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <%= render 'users/left', user: @user, book: @book %>
+    <div class='col-md-8 offset-md-1'>
+      <h2>Book detail</h2>
+      <table class='table table-hover table-inverse'>
+        <tr>
+          <td><%= link_to user_path(@user.id) do %>
+                <%= attachment_image_tag @user, :profile_image, :fill, 40, 40, format: 'jpeg' %>
+                <br><%= @user.name %>
+              <% end %>
+          </td>
+          <td><%= link_to book_path(@bookshow.id) do %>
+                <%= @bookshow.title %>
+              <% end %>
+          </td>
+          <td>
+            <%= @bookshow.body %>
+          </td>
+          <% if @user.id == current_user.id %>
+            <td><%= link_to "Edit", edit_book_path(@bookshow.id) %></td>
+            <td><%= link_to "Destroy", destroy_book_path(@bookshow.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
+          <% end %>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

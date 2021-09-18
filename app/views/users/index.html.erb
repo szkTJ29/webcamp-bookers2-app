@@ -1,0 +1,37 @@
+<% if @book.errors.any? %>
+  <%= @book.errors.count %>件のエラーが発生しました
+  <% @book.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
+
+  <div class='container px-5 px-sm-0'>
+    <div class='row'>
+      <%= render 'users/left', user: @user, book: @book %>
+      <div class='col-md-8 offset-md-1'>
+        <h2>Users</h2>
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>image</th>
+              <th>name</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+          <tbody>
+        <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to user_path(user.id) do %>
+                <%= attachment_image_tag user, :profile_image, :fill, 40, 40, fallback: "no_image.jpg", size:'40x40' %>
+              <% end %>
+          </td>
+          <td>名前：<%= user.name %></td>
+          <td><%= link_to "Show", user_path(user.id) %></td>
+        </tr>
+        <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
